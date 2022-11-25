@@ -17,6 +17,9 @@ other = "auteurs"
 [posts]
 other = "articles"
 
+[tils]
+other = "TIL"
+
 [reading_time]
 one = "Une minute de lecture"
 other = "{{ .Count }} minutes de lecture"
