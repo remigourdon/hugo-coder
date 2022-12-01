@@ -15,20 +15,33 @@
     {{- end -}}
   </h1>
   {{ .Content }}
+  {{ if len .Sections }}
+  <h2>Topics</h2>
   <ul>
-    {{ if len .Sections }}
     {{- range .Sections -}}
     <li>
       <span class="date">{{ len .RegularPages }}</span>
       <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
     </li>
     {{- end -}}
-    {{ else }}
+  </ul>
+  {{ else }}
+  <ul>
     {{- range .Paginator.Pages -}}
     {{- .Render "li" -}}
     {{- end -}}
-    {{ end }}
   </ul>
+  {{ end }}
+  <h2>Recent</h2>
+  {{- range ( where site.RegularPages "Section" "til" | first 3 ) }}
+  <ul>
+    <li>
+      <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
+      <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+      <i>{{ .Parent.Title }}</i>
+    </li>
+  </ul>
+  {{ end }}
 
   {{ partial "pagination.html" . }}
 </section>
