@@ -31,7 +31,7 @@
     <li>
       <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
       <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
-      <i>{{ .Parent.Title }}</i>
+      <a href="{{ .Parent.Params.externalLink | default .Parent.RelPermalink }}">{{ .Parent.Title }}</a>
     </li>
   </ul>
   {{ end }}
