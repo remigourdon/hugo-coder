@@ -25,13 +25,6 @@
     </li>
     {{- end -}}
   </ul>
-  {{ else }}
-  <ul>
-    {{- range .Paginator.Pages -}}
-    {{- .Render "li" -}}
-    {{- end -}}
-  </ul>
-  {{ end }}
   <h2>Recent</h2>
   {{- range ( where site.RegularPages "Section" "til" | first 3 ) }}
   <ul>
@@ -40,6 +33,13 @@
       <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
       <i>{{ .Parent.Title }}</i>
     </li>
+  </ul>
+  {{ end }}
+  {{ else }}
+  <ul>
+    {{- range .Paginator.Pages -}}
+    {{- .Render "li" -}}
+    {{- end -}}
   </ul>
   {{ end }}
 
