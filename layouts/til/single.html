@@ -25,6 +25,10 @@
             {{ i18n "reading_time" .ReadingTime }}
           </span>
         </div>
+        <div class="categories">
+          <i class="fa fa-folder" aria-hidden="true"></i>
+          <a href="{{ .Parent.Params.externalLink | default .Parent.RelPermalink }}">{{ .Parent.Title }}</a>
+        </div>
         {{ with .Page.Params.Authors }}{{ partial "taxonomy/authors.html" . }}{{ end }}
         {{ with .Page.Params.Categories }}{{ partial "taxonomy/categories.html" . }}{{ end }}
         {{ with .Page.Params.Tags }}{{ partial "taxonomy/tags.html" . }}{{ end }}
