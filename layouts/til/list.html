@@ -1,20 +1,35 @@
 {{ define "title" }}
-  {{ title (i18n (lower .Title)) | default .Title }} · {{ .Site.Title }}
+{{ title (i18n (lower .Title)) | default .Title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
-  <section class="container list">
-    <h1 class="title">
-      <a class="title-link" href="{{ .Permalink | safeURL }}">
-        {{ title (i18n (lower .Title)) | default .Title }}
-      </a>
-    </h1>
-    {{ .Content }}
-    <ul>
-      {{- range .Paginator.Pages -}}
-        {{- .Render "li" -}}
-      {{- end -}}
-    </ul>
+<section class="container list">
+  <h1 class="title">
+    {{ if len .Sections }}
+    <a class="title-link" href="{{ .Permalink | safeURL }}">
+      Today I Learned
+    </a>
+    {{ else }}
+    <a class="title-link" href="{{ .Permalink | safeURL }}">
+      Things I have learned about {{ .Title }}
+    </a>
+    {{- end -}}
+  </h1>
+  {{ .Content }}
+  <ul>
+    {{ if len .Sections }}
+    {{- range .Sections -}}
+    <li>
+      <span class="date">{{ len .RegularPages }}</span>
+      <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{- end -}}
+    {{ else }}
+    {{- range .Paginator.Pages -}}
+    {{- .Render "li" -}}
+    {{- end -}}
+    {{ end }}
+  </ul>
 
-    {{ partial "pagination.html" . }}
-  </section>
+  {{ partial "pagination.html" . }}
+</section>
 {{ end }}
